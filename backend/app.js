@@ -16,7 +16,8 @@ mongoose
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use("/images", express.static(path.join("backend/images")));
+app.use("/images", express.static(path.join(__dirname, "images")));
+app.use("/", express.static(path.join(__dirname, "dist/fe-app/browser")));
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -31,5 +32,9 @@ app.use((req, res, next) => {
 });
 app.use("/api/posts", PostRoutes);
 app.use("/api/user", UserRoutes);
+const angularPath = path.join(__dirname, "dist/fe-app/browser", "index.html");
+app.use("/", (req, res, next) => {
+  res.sendFile(angularPath);
+});
 
 module.exports = app;

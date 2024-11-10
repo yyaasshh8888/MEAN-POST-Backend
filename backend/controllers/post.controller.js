@@ -77,6 +77,7 @@ exports.updatePostById = (req, res, next) => {
     if (req.file) {
       imagePath = url + "/images/" + req.file.filename;
     }
+    console.log("image", imagePath);
     const post = new Post({
       ...req.body,
       imagePath: imagePath,
